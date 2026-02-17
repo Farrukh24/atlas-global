@@ -1,0 +1,10 @@
+{
+    "origin_location_id": 37,
+    "destination_location_id": 38,
+    "equipment_code": "DRY_VAN",
+    "weight_kg": 5000,
+    "pickup_earliest": "2026-02-17T11:26:00.000Z",
+    "delivery_earliest": "2026-03-06T11:26:00.000Z",
+    "cargo_description": "Electronics",
+    "volume_cbm": 15
+}

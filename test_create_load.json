@@ -1,0 +1,10 @@
+{
+    "origin_city": "tashkent",
+    "origin_country": "uzbekistan",
+    "destination_city": "istanbul",
+    "destination_country": "turkey",
+    "equipment_code": "DRY_VAN",
+    "weight_kg": 5200,
+    "pickup_earliest": "2026-02-16T16:11:00",
+    "delivery_earliest": "2026-03-07T16:11:00"
+}

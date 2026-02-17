@@ -1,0 +1,3 @@
+
+ALTER TABLE loads ADD COLUMN IF NOT EXISTS cargo_value_amount DECIMAL(15, 2);
+ALTER TABLE loads ADD COLUMN IF NOT EXISTS cargo_value_currency CHAR(3) DEFAULT 'USD';

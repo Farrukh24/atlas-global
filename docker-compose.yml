@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # 1. Database: PostgreSQL + PostGIS
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: atlas_db
+    environment:
+      POSTGRES_DB: logistics_eco
+      POSTGRES_USER: atlas
+      POSTGRES_PASSWORD: atlas123
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U atlas -d logistics_eco"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: atlas_api
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      # Override DB host to match container name
+      DB_HOST: postgres
+      DB_NAME: logistics_eco
+      DB_USER: atlas
+      DB_PASSWORD: atlas123
+      DB_PORT: 5432
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # 3. Web Dashboard
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: atlas_web
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+
+  # 4. Adminer (DB UI)
+  adminer:
+    image: adminer:4.8.1
+    container_name: atlas_adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
