@@ -26,7 +26,10 @@ const pool = new Pool({
   database: env.DB_NAME,
   max: 20,
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  connectionTimeoutMillis: 10000,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 pool.on('error', (err) => {
