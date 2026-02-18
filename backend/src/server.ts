@@ -1,3 +1,9 @@
+import dns from 'dns';
+// Force IPv4 for Render + Supabase compatibility
+if (dns.setDefaultResultOrder) {
+    dns.setDefaultResultOrder('ipv4first');
+}
+
 import { createServer } from 'http';
 import app from './app.js';
 import { env } from './config/env.js';
